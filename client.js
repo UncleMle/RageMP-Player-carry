@@ -80,11 +80,11 @@ class playerCarry {
         });
         
         mp.keys.bind(88, false, () => {
-        if(mp.players.local.getVariable('carryInfo')) {
-        mp.events.callRemote('player:stopCarry');
-        mp.events.call('notifCreate', `~w~Dropped player ~g~successfully`)
-        return;
-        }
+            if(mp.players.local.getVariable('carryInfo')) {
+                mp.events.callRemote('player:stopCarry');
+                mp.events.call('notifCreate', `~w~Dropped player ~g~successfully`)
+                return;
+            }
         })
 
         setInterval(() => {
