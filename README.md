@@ -5,4 +5,4 @@ All animations are synced the player can go up to a player that is injured then 
 
 The player can then press X to drop the player. 
 
-As can be seen in the script there is instances of me using a custom notification event to update the player. You can implement this yourself or simply push the messages to chat with the method mp.gui.chat.push('message').
+If you want the target player to have a custom name in the script you can assign the .nickName property a value this can be combined with a alias system. 
