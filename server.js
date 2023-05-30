@@ -1,8 +1,8 @@
 mp.events.add({
-    'player:carry': async (player, target) => {
+    'player:carry': (player, target) => {
         player.setVariable('carryInfo', target)
     },
-    'player:stopCarry': async (player) => {
+    'player:stopCarry': (player) => {
         if (player.getVariable('carryInfo')) {
             player.call('detachAll', [player.getVariable('carryInfo')]);
             player.setVariable('carryInfo', null)
