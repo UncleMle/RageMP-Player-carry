@@ -3,9 +3,9 @@ class playerCarry {
         this.target = null;
 
         mp.events.addDataHandler({
-            'carryInfo': function (entity, value) {
+            'carryInfo': function(entity, value) {
                 if (entity.type == 'player') {
-                    if (value != null && value.type == 'player') {
+                    if (value !== null && value.type == 'player') {
                         mp.players.forEachInStreamRange(() => {
                             mp.game.streaming.requestAnimDict(`nm`);
                             mp.game.streaming.requestAnimDict(`missfinale_c2mcs_1`);
@@ -13,11 +13,14 @@ class playerCarry {
                             entity.taskPlayAnim("missfinale_c2mcs_1", "fin_c2_mcs_1_camman", 8.0, 1.0, -1, 0 + 32 + 16, 0.0, false, false, false);
                         })
                     }
-                    else {
+                    else if(!value) {
                         entity.detach(true, false);
                         entity.clearTasks();
                     }
                 }
+            },
+            'dropAnim': function(entity, value) {
+                entity.clearTasks()
             }
         })
 
@@ -31,10 +34,8 @@ class playerCarry {
                         if (!target) return;
                         target.detach(true, false);
                         target.clearTasks();
-                        mp.players.forEachInStreamRange(() => {
-                            mp.game.streaming.requestAnimDict(`combat@damage@writheidle_a`);
-                            target.taskPlayAnim(`combat@damage@writheidle_a`, `writhe_idle_a`, 8.0, 1.0, -1, 1, 1.0, false, false, false);
-                        })
+                        mp.game.streaming.requestAnimDict(`combat@damage@writheidle_a`);
+                        target.taskPlayAnim(`combat@damage@writheidle_a`, `writhe_idle_a`, 8.0, 1.0, -1, 1, 1.0, false, false, false);
                     }, 100);
                 }
             },
@@ -88,7 +89,7 @@ class playerCarry {
                 return;
             }
         })
-        
+
         setInterval(() => {
             mp.players.forEachInStreamRange((ps) => {
                 if (ps.getVariable('carryInfo')) {
