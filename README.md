@@ -1,7 +1,7 @@
 # RageMP-Player-carry
 This script allows you to carry player with the use of raycasting. 
 
-All animations are synced the player can go up to a player that is injured then press E on them to carry. 
+Whole system is synced between clients. Any player can go up to a player and press E to carry them. This can be combined with an injury system to be able to carry only injured players can be done with a simple check for a shared injured variable. 
 
 The player can then press X to drop the player. 
 
