@@ -34,8 +34,6 @@ class playerCarry {
                         if (!target) return;
                         target.detach(true, false);
                         target.clearTasks();
-                        mp.game.streaming.requestAnimDict(`combat@damage@writheidle_a`);
-                        target.taskPlayAnim(`combat@damage@writheidle_a`, `writhe_idle_a`, 8.0, 1.0, -1, 1, 1.0, false, false, false);
                     }, 100);
                 }
             },
