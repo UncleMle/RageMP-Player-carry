@@ -3,20 +3,16 @@ class playerCarry {
         this.target = null;
 
         mp.events.addDataHandler({
-            'carryInfo': function(entity, value) {
-                if (entity.type == 'player') {
-                    if (value !== null && value.type == 'player') {
-                        mp.players.forEachInStreamRange(() => {
-                            mp.game.streaming.requestAnimDict(`nm`);
-                            mp.game.streaming.requestAnimDict(`missfinale_c2mcs_1`);
-                            value.taskPlayAnim("nm", "firemans_carry", 8.0, 1.0, -1, 33, 0.0, true, true, true);
-                            entity.taskPlayAnim("missfinale_c2mcs_1", "fin_c2_mcs_1_camman", 8.0, 1.0, -1, 0 + 32 + 16, 0.0, false, false, false);
-                        })
-                    }
-                    else if(!value) {
-                        entity.detach(true, false);
-                        entity.clearTasks();
-                    }
+            'carryInfo': function(entity, value) { // Animations synced via datahandler and entity stream events.
+                if (entity.type == 'player' && value !== null && value.type == 'player') {
+                    mp.game.streaming.requestAnimDict(`nm`);
+                    mp.game.streaming.requestAnimDict(`missfinale_c2mcs_1`);
+                    value.taskPlayAnim("nm", "firemans_carry", 8.0, 1.0, -1, 33, 0.0, true, true, true);
+                    entity.taskPlayAnim("missfinale_c2mcs_1", "fin_c2_mcs_1_camman", 8.0, 1.0, -1, 0 + 32 + 16, 0.0, false, false, false);
+                }
+                else if(!value) {
+                    entity.detach(true, false);
+                    entity.clearTasks();
                 }
             },
             'dropAnim': function(entity, value) {
@@ -80,8 +76,7 @@ class playerCarry {
         });
 
         mp.keys.bind(88, false, () => {
-            if(mp.players.local.vehicle || mp.players.local.isTypingInTextChat) { return; }
-            if(mp.players.local.getVariable('carryInfo')) {
+            if(mp.players.local.getVariable('carryInfo') && !mp.players.local.vehicle && !mp.players.local.isTypingInTextChat) {
                 mp.events.callRemote('player:stopCarry');
                 mp.gui.chat.push('Dropped player successfully.')
                 return;
@@ -92,7 +87,7 @@ class playerCarry {
             mp.players.forEachInStreamRange((ps) => {
                 if (ps.getVariable('carryInfo')) {
                     var target = ps.getVariable('carryInfo')
-                    if (target && ps && ps.handle !== target.handle) { // NOTE: Ped handle being same as target handle causes client crash
+                    if (target && ps && ps.handle !== target.handle) { // NOTE: Player handle being same as target handle causes client crash
                         target.attachTo(ps.handle, 0, 0.15, 0.27, 0.63, 0.5, 0.5, 0.0, false, false, false, false, 2, false);
 
                         element.ped = mp.peds.new(target.model, ps.position, 0);
