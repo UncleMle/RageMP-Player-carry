@@ -9,6 +9,8 @@ If you want the target player to have a custom name in the script you can assign
 
 To use this resource place the client file into client_packages and set it as a requirement in your index.js file. To install the server side file you can create a new file called 'PlayerCarry' and set it inside of an index.js file to have the package auto loaded. 
 
+(You can find the typescript version of this script over here: https://github.com/UncleMle/RageMP-Player-carry)
+
 https://www.youtube.com/watch?v=xIwX3z0liek
 
 
